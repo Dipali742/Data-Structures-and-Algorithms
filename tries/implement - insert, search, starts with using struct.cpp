@@ -30,7 +30,7 @@ public:
   
 };
 
-class Trie {
+struct Trie {
 private: 
   Node* root;
 public:
