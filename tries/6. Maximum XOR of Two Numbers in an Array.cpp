@@ -1,3 +1,8 @@
+/*
+Space Complexity: O(n*32)
+Time Complexity: O(n*32)
+*/
+
 class Node {
 private:
     Node* links[2];
