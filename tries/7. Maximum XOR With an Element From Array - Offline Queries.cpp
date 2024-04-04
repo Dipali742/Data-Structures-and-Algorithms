@@ -1,3 +1,9 @@
+/*
+    Time Complexity: O(n^2)
+    Space Complexity: O(1)
+    problem link : https://leetcode.com/problems/maximum-xor-with-an-element-from-array/description/
+*/
+
 class Node {
 private:
     Node* links[2];
