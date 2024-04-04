@@ -47,11 +47,11 @@ public:
     int max_XOR(int x) {
         Node* node = root;
         int temp_number = x;
-        int pair_num = 0;
+        int maximum_xor = 0;
         for(int i=31;i>=0;i--) {
             int bit = (temp_number>>i) & 1;
             if(node->containsKey(!bit)) {
-                pair_num = pair_num | (1<<i);
+                maximum_xor = maximum_xor | (1<<i);
                 node = node->getNext(!bit);
             } else
                 node = node->getNext(bit);     
