@@ -1,4 +1,8 @@
 /*
+Naive solution - XOR every element with every other element in an array using XOR(^) operator
+Time Complexity: O(n^2)
+
+Better approach - using Trie
 Space Complexity: O(n*32)
 Time Complexity: O(n*32)
 */
