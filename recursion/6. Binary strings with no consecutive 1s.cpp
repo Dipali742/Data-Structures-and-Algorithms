@@ -1,24 +1,23 @@
+/*
+time complexity: O(2^n)
+space complexity: O(n) - recursion stack space
+*/
+
 void generate(vector<string>&ans, int n,int index, string current, int prev) {
     if(index == n) {
          ans.push_back(current);
-         current.pop_back();
          return;
     }
       
-    current += '0';
-    generate(ans, n, index+1,current, 0);
-    current.pop_back();
+    generate(ans, n, index+1,current+'0', 0);
 
     if(!prev) {
-        current+='1';
-        generate(ans, n, index+1, current, 1);
-        current.pop_back();
+        generate(ans, n, index+1, current+'1', 1);
     }
 }
 
 vector<string> generateString(int N) {
     vector<string>ans;
-    string current = "";
-    generate(ans, N, 0, current, 0);
+    generate(ans, N, 0, "", 0);
     return ans;
 }
