@@ -1,43 +1,54 @@
 class Solution {
 public:
+    int max_profit_recursive(vector<int>& prices, int index, int buy, int cap) {
+        if(cap == 0)
+            return 0;
+        if(index == prices.size())
+            return 0;
 
-/*
+        if(buy == 1) {
+            return max(-prices[index] + max_profit_recursive(prices, index+1, !buy, cap), max_profit_recursive(prices, index+1, buy, cap));
+        } else {
+            return max(prices[index] + max_profit_recursive(prices, index+1, !buy, cap-1), max_profit_recursive(prices, index+1, buy, cap));
+        }
+    }
 
-buy : 0 
-buy => -profit + f(i+1, 1, cap)
-not_buy => 0 + f(i+1, 0, cap)
+    int max_profit_memoization(vector<int>& prices, int index, int buy, int cap, vector<vector<vector<int>>>&dp) {
+        if(cap == 0)
+            return 0;
+        if(index == prices.size())
+            return 0;
+        if(dp[index][buy][cap] != -1)
+            return dp[index][buy][cap];
+        if(buy == 1) {
+            return dp[index][buy][cap] = max(-prices[index] + max_profit_recursive(prices, index+1, !buy, cap), max_profit_recursive(prices, index+1, buy, cap));
+        } else {
+            return dp[index][buy][cap] = max(prices[index] + max_profit_recursive(prices, index+1, !buy, cap-1), max_profit_recursive(prices, index+1, buy, cap));
+        }
+    }
 
-
-sell : 1
-sell => profit + f(i+1, 0, cap-1)
-not_sell => 0 + f(i+1, 1, cap)
-
-dp[day][buy/sell][cap]
-
-day => n+1;
-cap => 2+1;
-
-base condition => cap(0) : 0, i(n) : 0
-
-*/
-    int maxProfit(vector<int>& prices) {
+    int max_profit_tabulation(vector<int>& prices) {
         int n = prices.size();
         vector<vector<vector<int>>>dp(n+1, vector<vector<int>>(2, vector<int>(3, 0)));
-
-        for(int day = n-1; day >= 0; day--) {
-            for(int buy = 1; buy >=0 ; buy--) {
-                for(int cap = 1; cap < 3 ; cap++) {
-                    if(buy == 0) {
-                        dp[day][buy][cap] = max(-prices[day] + dp[day+1][1][cap], dp[day+1][0][cap]);
+        for(int index = n-1 ; index>=0;index--) {
+            for(int buy = 0;buy<2;buy++) {
+                for(int cap = 1;cap<3;cap++) {
+                    if(buy == 1) {
+                        dp[index][buy][cap] = max(-prices[index] + dp[index+1][0][cap], dp[index+1][buy][cap]);
                     } else {
-                        dp[day][buy][cap] = max(prices[day] + dp[day+1][0][cap-1], dp[day+1][1][cap]);
+                        dp[index][buy][cap] = max(prices[index] + dp[index+1][1][cap-1], dp[index+1][buy][cap]);
                     }
                 }
             }
         }
-
-        return dp[0][0][2];
+        return dp[0][1][2];
     }
 
-
+    int maxProfit(vector<int>& prices) {
+        int n = prices.size();
+        // vector<vector<vector<int>>>dp(n+1, vector<vector<int>>(2, vector<int>(3, -1)));
+        // return max_profit_memoization(prices, 0, 1, 2, dp);
+        // return max_profit_recursive(prices, 0, 1, 2);
+        return max_profit_tabulation(prices);
+    }
 };
