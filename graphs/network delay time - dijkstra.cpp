@@ -6,6 +6,7 @@ public:
             adjList[times[i][0]].push_back({times[i][1], times[i][2]});
         }
         /*
+            time complexity is O((V + E) * log V) and the space complexity is O(V + E).
             adjList 
             0
             1 => 
