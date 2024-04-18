@@ -21,7 +21,7 @@ class Solution
             lefti++; 
         }
         
-        while(righti <= mid) {
+        while(righti <= high) {
             temp.push_back(arr[righti]);
             righti++; 
         }
