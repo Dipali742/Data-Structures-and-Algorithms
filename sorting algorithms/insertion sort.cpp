@@ -18,11 +18,8 @@ void insertionSort(int arr[], int n)
         int element = arr[i];
         int j = i;
         while( j>0 && arr[j] < arr[j-1]) {
-            if(arr[j] < arr[j-1]) {
-                swap(arr[j], arr[j-1]);
-            } else
-                break;
-            j--;
+           swap(arr[j], arr[j-1]);
+           j--;
         }
     }
 }
