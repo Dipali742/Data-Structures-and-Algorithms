@@ -27,8 +27,7 @@ class Solution
         }
         
         for(int i = 0;i<temp.size();i++) {
-            arr[low] = temp[i];
-            low++;
+            arr[low+i] = temp[i];
         }
     }
     
