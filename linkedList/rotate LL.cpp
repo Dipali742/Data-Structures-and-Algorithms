@@ -23,7 +23,7 @@ public:
             return 2*n + 1;
     }
     ListNode* rotateRight(ListNode* head, int k) {
-        if(head == NULL || head->next == NULL || k == 0) {
+        if(head == NULL || head->next == NULL) {
             return head;
         }
         ListNode* dummy = new ListNode(0);
@@ -33,6 +33,8 @@ public:
         int n = findLength(head);
         cout<<n<<endl;
         k = k % n;
+        if(k == 0)
+            return head;
         while(k--) {
             fast = fast->next;
         }
@@ -46,4 +48,4 @@ public:
         fast->next = dummy->next;
         return head;
     }
-};r
+};
