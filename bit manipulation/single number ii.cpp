@@ -16,3 +16,19 @@ public:
         return res;
     }
 };
+
+
+class Solution {
+public:
+    int singleNumber(vector<int>& nums) {
+        //bucket sort - two buckets
+        int ones = 0;
+        int twos = 0;
+        int n = nums.size();
+        for(int i =0 ;i<nums.size();i++) {
+            ones = (ones^nums[i])&~twos; //add into ones if it is not in twos
+            twos = (twos^nums[i])&~ones; //add into twos if it is not in ones
+        }
+        return ones;
+    }
+};
