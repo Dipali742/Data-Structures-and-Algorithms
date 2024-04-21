@@ -27,16 +27,24 @@ In sorted order:
 33 = 0000 0000 0000 0000 0000 0000 0010 0001
 */
 
-private void sort(int[] A) {
-        
+
+/*
+  0 15 => one bucket
+  16 to 31 => second bucket and so on...
+
+  create 16 buckets inside first bucket and place elements
+*/
+class Solution {
+public:
+    vector<int> sortArray(vector<int>& A) {
         int i = 0;
-        int n = A.length;
+        int n = A.size();
         while(i < n) {
            
             int start = i;
-            int[] bucket = new int[16];
+            int bucket[16];
             int bucketNum = A[i] & ~15;
-            
+            // cout<<"hello "<<A[i]<<" "<<endl;
             // Fill bucket
             while(i < n && (A[i] & ~15) == bucketNum) {
       
@@ -48,7 +56,6 @@ private void sort(int[] A) {
             // Place sorted bucket
             for(int j = 0; j < 16; j++) {
                 if(bucket[j] == 0) continue;
-        
                 while(bucket[j] > 0) {
                     A[start] = bucketNum + j;
                     start++;
@@ -56,4 +63,6 @@ private void sort(int[] A) {
                 }
             }
         }
+        return A;
     }
+};
