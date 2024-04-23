@@ -56,7 +56,7 @@ bool visitOnce(vector<vector<int>>&matrix, int zeroes, int ones, int i, int j, b
 				return true;
 			if((matrix[row][column] == 0 || matrix[row][column] == 1)) {
 				if(visitOnce(matrix, zeroes, ones, row, column, adjZeroes, adjOnes)) 
-				return true;
+					return true;
 				matrix[row][column] -= 2;
 			}
 			
