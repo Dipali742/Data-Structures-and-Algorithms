@@ -18,7 +18,7 @@ bool isSafe(int row, int column, int n) {
 	return row < n && row >= 0 && column >= 0 && column < n-1;
 }
 
-bool visitOnce(vector<vector<int>>&matrix, int zeroes, int ones, int i, int j) {
+bool visitOnce(vector<vector<int>>&matrix, int zeroes, int ones, int i, int j, bool adjZeroes, bool adjOnes) {
 	if(matrix[i][j] == 0) {
 		matrix[i][j] += 2;
 		zeroes++;
@@ -44,12 +44,22 @@ bool visitOnce(vector<vector<int>>&matrix, int zeroes, int ones, int i, int j) {
 		int column = j + indices[k][1];
 
 		if(isSafe(row, column, matrix.size())) {
-			if(matrix[i][j] - 2 == matrix[row][column])
-				return true;
-			if((matrix[row][column] == 0 || matrix[row][column] == 1) && visitOnce(matrix, zeroes, ones, row, column)) {
-				return true;
+			
+			if(matrix[i][j] - 2 == matrix[row][column]) {
+				if(matrix[row][column] == 1)
+					adjOnes = true;
+				else
+					adjZeroes = true;
 			}
-			matrix[row][column] -= 2;
+
+			if(adjOnes && adjZeroes)
+				return true;
+			if((matrix[row][column] == 0 || matrix[row][column] == 1)) {
+				if(visitOnce(matrix, zeroes, ones, row, column, adjZeroes, adjOnes)) 
+				return true;
+				matrix[row][column] -= 2;
+			}
+			
 		}
 	}
 
@@ -60,13 +70,13 @@ bool visitOnce(vector<vector<int>>&matrix, int zeroes, int ones, int i, int j) {
 int main() {
 	
 	vector<vector<int>>matrix {
-		{0, 0, 1},
+		{0, 1, 1},
 		{1, 0, 1},
 		{1, 1, 1},
 		{1, 1, 1}
 	};
 
-	if(visitOnce(matrix, 0, 0, 0, 0))
+	if(visitOnce(matrix, 0, 0, 0, 0, false, false))
 		cout<<"true"<<endl;
 	else
 		cout<<"false"<<endl;
