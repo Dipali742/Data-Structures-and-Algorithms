@@ -44,7 +44,7 @@ bool visitOnce(vector<vector<int>>&matrix, int zeroes, int ones, int i, int j) {
 		int column = j + indices[k][1];
 
 		if(isSafe(row, column, matrix.size())) {
-			if(matrix[row][column] - 2 == matrix[i][j])
+			if(matrix[i][j] - 2 == matrix[row][column])
 				return true;
 			if((matrix[row][column] == 0 || matrix[row][column] == 1) && visitOnce(matrix, zeroes, ones, row, column)) {
 				return true;
