@@ -34,3 +34,20 @@ vector<vector<string>>fillGarden(unordered_map<string, int>crops, int m, int n) 
     }
     return garden;
 }
+
+
+//increased readability
+vector<vector<string>> fillGarden(unordered_map<string, int> crops, int m, int n) {
+    vector<vector<string>> garden(m, vector<string>(n, ""));
+    auto it = crops.begin();
+    for (int i = 0; i < m; ++i) {
+        for (int j = 0; j < n; ++j) {
+            int col = (i % 2 == 0) ? j : (n - 1 - j);
+            garden[i][col] = it->first;
+            if (--it->second == 0) {
+                ++it;
+            }
+        }
+    }
+    return garden;
+}
